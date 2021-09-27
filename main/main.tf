@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "b" {
-  bucket = "${terraform.workspace}-tf-bucket-tantor"
+  bucket = "${terraform.workspace}-tf-tantor"
   acl    = "private"
 
   tags = {
