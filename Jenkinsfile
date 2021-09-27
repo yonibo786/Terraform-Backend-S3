@@ -28,7 +28,6 @@ pipeline {
 				choices: ['eu-central-1','us-west-1', 'us-west-2'],
 				description: 'Pick A regions defaults to eu-central-1')
 		string (name: 'ENV_NAME',
-			   defaultValue: 'tf-customer1',
 			   description: 'Env or Customer name')
 		choice (name: 'ACTION',
 				choices: [ 'plan', 'apply', 'destroy'],
