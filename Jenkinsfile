@@ -1,13 +1,11 @@
+   
 def tfCmd(String command, String options = '') {
-	echo "aaaaaaaaaaa"
-	echo "bbbbbbbbbbbbbbbbbbbb"
-	sh ("cd $WORKSPACE/main && terraform init -migrate-state") // main
-	echo "cccccccccccccccc"
-	sh ("cd $WORKSPACE/base && terraform init -migrate-state") // base
-	echo "dddddddddddddddddddd"
+	ACCESS = "export AWS_PROFILE=default && export TF_ENV_profile=default"
+	sh ("cd $WORKSPACE/main && ${ACCESS} && terraform init") // main
+	sh ("cd $WORKSPACE/base && ${ACCESS} && terraform init") // base
 	sh ("cd $WORKSPACE/main && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
 	sh ("echo ${command} ${options}") 
-        sh ("cd $WORKSPACE/main && terraform init && terraform ${command} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
+        sh ("cd $WORKSPACE/main && ${ACCESS} && terraform init && terraform ${command} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
 }
 
 pipeline {
