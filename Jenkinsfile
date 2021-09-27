@@ -1,7 +1,7 @@
 def tfCmd(String command, String options = '') {
 	echo "aaaaaaaaaaa"
 	echo "bbbbbbbbbbbbbbbbbbbb"
-	sh ("cd $WORKSPACE/main && terraform init"") // main
+	sh ("cd $WORKSPACE/main && terraform init") // main
 	echo "cccccccccccccccc"
 	sh ("cd $WORKSPACE/base && terraform init") // base
 	echo "dddddddddddddddddddd"
