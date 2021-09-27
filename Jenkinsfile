@@ -132,19 +132,6 @@ pipeline {
 					}
 				}
 			steps {
-				script {
-					def IS_APPROVED = input(
-						message: "Destroy ${ENV_NAME} !?!",
-						ok: "Yes",
-						parameters: [
-							string(name: 'IS_APPROVED', defaultValue: 'No', description: 'Think again!!!')
-						]
-					)
-					if (IS_APPROVED != 'Yes') {
-						currentBuild.result = "ABORTED"
-						error "User cancelled"
-					}
-				}
 				dir("${PROJECT_DIR}") {
 					script {
 						wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
