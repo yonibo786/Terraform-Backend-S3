@@ -1,11 +1,11 @@
    
 def tfCmd(String command, String options = '') {
 	ACCESS = "export AWS_PROFILE=default && export TF_ENV_profile=default"
-	sh ("cd $WORKSPACE/main && ${ACCESS} && terraform init -migrate-state") // main
+	sh ("cd $WORKSPACE/${params.SERVICE_NAME} && ${ACCESS} && terraform init -migrate-state") // main
 	sh ("cd $WORKSPACE/base && ${ACCESS} && terraform init -migrate-state") // base
-	sh ("cd $WORKSPACE/main && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
+	sh ("cd $WORKSPACE/${params.SERVICE_NAME} && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
 	sh ("echo ${command} ${options}") 
-        sh ("cd $WORKSPACE/main && ${ACCESS} && terraform init && terraform ${command} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
+        sh ("cd $WORKSPACE/${params.SERVICE_NAME} && ${ACCESS} && terraform init && terraform ${command} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
 }
 
 pipeline {
@@ -29,6 +29,8 @@ pipeline {
 				description: 'Pick A regions defaults to eu-central-1')
 		string (name: 'ENV_NAME',
 			   description: 'Env or Customer name')
+		string (name: 'SERVICE_NAME',
+			   description: 'Service name')
 		choice (name: 'ACTION',
 				choices: [ 'plan', 'apply', 'destroy'],
 				description: 'Run terraform plan / apply / destroy')
