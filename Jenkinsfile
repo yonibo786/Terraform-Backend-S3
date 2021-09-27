@@ -14,7 +14,7 @@ pipeline {
 	environment {
 		AWS_DEFAULT_REGION = "${params.AWS_REGION}"
 		ACTION = "${params.ACTION}"
-		PROJECT_DIR = "terraform/main"
+		PROJECT_DIR = "terraform/${params.SERVICE_NAME}"
   }
 	options {
         buildDiscarder(logRotator(numToKeepStr: '30'))
