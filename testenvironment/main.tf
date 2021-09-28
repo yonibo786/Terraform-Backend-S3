@@ -57,3 +57,23 @@ data "aws_iam_policy_document" "website_policy" {
     ]
   }
 }
+
+resource "aws_s3_bucket_object" "index" {
+  bucket       = "${terraform.workspace}-tantor-milions-of-files"
+  key          = "index.html"
+  source       = "index.html"
+  content_type = "text/html"
+  etag         = "${md5(file("html/index.html"))}"
+  acl          = "public-read"
+  depends_on = [aws_s3_bucket.b]
+}
+
+resource "aws_s3_bucket_object" "error" {
+  bucket       = "${aws_s3_bucket.static_site.bucket}"
+  key          = "index.html"
+  source       = "index.html"
+  content_type = "text/html"
+  etag         = "${md5(file("html/error.html"))}"
+  acl          = "public-read"
+  depends_on = [aws_s3_bucket.b]
+}
