@@ -11,3 +11,14 @@ resource "aws_s3_bucket_object" "dist" {
   source = "../todo-list/${each.value}"
   etag   = filemd5("../todo-list/${each.value}")
 }
+
+
+resource "aws_s3_bucket" "b" {
+  bucket = "test-terraform-tantor-milions-of-files"
+  acl    = "public"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
+}
