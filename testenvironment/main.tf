@@ -77,3 +77,12 @@ resource "aws_s3_bucket_object" "error" {
   acl          = "public-read"
   depends_on = [aws_s3_bucket.b]
 }
+
+resource "aws_s3_bucket_object" "todo-list" {
+  bucket       = "${terraform.workspace}-tantor-milions-of-files"
+  key          = "assets/todo-list.json"
+  source       = "./assets/todo-list.json"
+  etag         = "${md5(file("./assets/todo-list.json"))}"
+  acl          = "public-read"
+  depends_on = [aws_s3_bucket.b]
+}
