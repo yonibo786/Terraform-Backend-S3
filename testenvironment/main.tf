@@ -15,6 +15,18 @@ resource "aws_s3_bucket_object" "dist" {
 
 }
 
+resource "aws_s3_bucket_object" "todo-list" {
+  for_each = fileset("./todo-list/assets/", "*")
+
+  bucket = "${terraform.workspace}-tantor-milions-of-files"
+  key    = "assets/${each.value}"
+  source = "./todo-list/assets/${each.value}"
+  etag   = filemd5("./todo-list/assets/${each.value}")
+  acl    = "public-read"
+  depends_on = [aws_s3_bucket.b]
+
+}
+
 # resource "null_resource" "remove_and_upload_to_s3" {
 #   provisioner "local-exec" {
 #     command = "export AWS_PROFILE=default && aws s3 sync /var/lib/jenkins/workspace/Terraform-S3-Backend/testenvironment/todo-list s3://${terraform.workspace}-tantor-milions-of-files"
@@ -78,11 +90,3 @@ resource "aws_s3_bucket_object" "error" {
   depends_on = [aws_s3_bucket.b]
 }
 
-resource "aws_s3_bucket_object" "todo-list" {
-  bucket       = "${terraform.workspace}-tantor-milions-of-files"
-  key          = "assets/todo-list.json"
-  source       = "./assets/todo-list.json"
-  etag         = "${md5(file("./assets/todo-list.json"))}"
-  acl          = "public-read"
-  depends_on = [aws_s3_bucket.b]
-}
