@@ -10,7 +10,8 @@ resource "aws_s3_bucket_object" "dist" {
   key    = each.value
   source = "./todo-list/${each.value}"
   etag   = filemd5("./todo-list/${each.value}")
-  acl    = "public-read" 
+  acl    = "public-read"
+  content_type = each.value.content_type
   depends_on = [aws_s3_bucket.b]
 
 }
