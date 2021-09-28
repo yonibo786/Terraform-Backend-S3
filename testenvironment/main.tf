@@ -21,6 +21,8 @@ resource "aws_s3_bucket" "b" {
 
   bucket = "${terraform.workspace}-tantor-milions-of-files"
   acl    = "public-read"
+  force_destroy = true
+
 
   tags = {
     Name        = "My bucket"
