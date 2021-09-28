@@ -4,10 +4,10 @@ provider "aws" {
 
 
 resource "aws_s3_bucket_object" "dist" {
-  for_each = fileset("/home/pawan/Documents/Projects/", "*")
+  for_each = fileset("../todo-list/", "*")
 
   bucket = "test-terraform-tantor-milions-of-files"
   key    = each.value
-  source = "/home/pawan/Documents/Projects/${each.value}"
-  etag   = filemd5("/home/pawan/Documents/Projects/${each.value}")
+  source = "../todo-list/${each.value}"
+  etag   = filemd5("../todo-list/${each.value}")
 }
