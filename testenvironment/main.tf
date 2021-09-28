@@ -8,8 +8,8 @@ resource "aws_s3_bucket_object" "dist" {
 
   bucket = "test-terraform-tantor-milions-of-files"
   key    = each.value
-  source = "../todo-list/${each.value}"
-  etag   = filemd5("../todo-list/${each.value}")
+  source = "./todo-list/${each.value}"
+  etag   = filemd5("./todo-list/${each.value}")
 }
 
 
