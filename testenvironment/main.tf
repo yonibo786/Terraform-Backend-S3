@@ -63,7 +63,7 @@ resource "aws_s3_bucket_object" "index" {
   key          = "index.html"
   source       = "index.html"
   content_type = "text/html"
-  etag         = "${md5(file("html/index.html"))}"
+  etag         = "${md5(file("index.html"))}"
   acl          = "public-read"
   depends_on = [aws_s3_bucket.b]
 }
@@ -73,7 +73,7 @@ resource "aws_s3_bucket_object" "error" {
   key          = "index.html"
   source       = "index.html"
   content_type = "text/html"
-  etag         = "${md5(file("html/error.html"))}"
+  etag         = "${md5(file("index.html"))}"
   acl          = "public-read"
   depends_on = [aws_s3_bucket.b]
 }
