@@ -3,16 +3,22 @@ provider "aws" {
 }
 
 
-resource "aws_s3_bucket_object" "dist" {
-  for_each = fileset("./todo-list/", "*")
+# resource "aws_s3_bucket_object" "dist" {
+#   for_each = fileset("./todo-list/", "*")
 
-  bucket = "${terraform.workspace}-tantor-milions-of-files"
-  key    = each.value
-  source = "./todo-list/${each.value}"
-  etag   = filemd5("./todo-list/${each.value}")
-  acl    = "public-read"
-  depends_on = [aws_s3_bucket.b]
+#   bucket = "${terraform.workspace}-tantor-milions-of-files"
+#   key    = each.value
+#   source = "./todo-list/${each.value}"
+#   etag   = filemd5("./todo-list/${each.value}")
+#   acl    = "public-read"
+#   depends_on = [aws_s3_bucket.b]
 
+# }
+
+resource "null_resource" "remove_and_upload_to_s3" {
+  provisioner "local-exec" {
+    command = "aws s3 sync ./todo-list s3://${terraform.workspace}-tantor-milions-of-files"
+  }
 }
 
 
