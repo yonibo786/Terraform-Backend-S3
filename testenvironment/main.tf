@@ -23,6 +23,7 @@ resource "aws_s3_bucket_object" "todo-list" {
   source = "./todo-list/assets/${each.value}"
   etag   = filemd5("./todo-list/assets/${each.value}")
   acl    = "public-read"
+  content_type = "application/json"
   depends_on = [aws_s3_bucket.b]
 
 }
