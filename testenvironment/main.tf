@@ -39,6 +39,7 @@ data "aws_iam_policy_document" "website_policy" {
     ]
     principals {
       identifiers = ["*"]
+      type = "AWS"
     }
     resources = [
       "arn:aws:s3:::test-terraform-tantor-milions-of-files/*"
