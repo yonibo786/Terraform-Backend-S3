@@ -69,7 +69,7 @@ resource "aws_s3_bucket_object" "index" {
 }
 
 resource "aws_s3_bucket_object" "error" {
-  bucket       = "${aws_s3_bucket.static_site.bucket}"
+  bucket       = "${terraform.workspace}-tantor-milions-of-files"
   key          = "index.html"
   source       = "index.html"
   content_type = "text/html"
