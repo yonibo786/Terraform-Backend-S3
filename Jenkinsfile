@@ -12,7 +12,6 @@ pipeline {
   agent any
 
 	environment {
-		AWS_DEFAULT_REGION = "${params.AWS_REGION}"
 		ACTION = "${params.ACTION}"
 		PROJECT_DIR = "terraform/${params.SERVICE_NAME}"
   }
@@ -23,10 +22,6 @@ pipeline {
         disableConcurrentBuilds()
   }
 	parameters {
-
-		choice (name: 'AWS_REGION',
-				choices: ['eu-central-1','us-west-1', 'us-west-2'],
-				description: 'Pick A regions defaults to eu-central-1')
 		string (name: 'ENV_NAME',
 			   description: 'Env or Customer name')
 		string (name: 'SERVICE_NAME',
@@ -52,7 +47,7 @@ pipeline {
 								def tfHome = tool name: 'terraform-11',
 									type: 'org.jenkinsci.plugins.terraform.TerraformInstallation'
 									env.PATH = "${tfHome}:${env.PATH}"
-									currentBuild.displayName += "[$AWS_REGION]::[$ACTION]"
+									currentBuild.displayName += "[$ENV_NAME]::[$ACTION]"
 									tfCmd('version')
 							} catch (ex) {
                                                                 echo 'Err: Incremental Build failed with Error: ' + ex.toString()
