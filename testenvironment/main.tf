@@ -91,3 +91,13 @@ resource "aws_s3_bucket_object" "error" {
   depends_on = [aws_s3_bucket.b]
 }
 
+resource "aws_s3_bucket_object" "cssfile" {
+  bucket       = "${terraform.workspace}-tantor-milions-of-files"
+  key          = "styles.c54309772107e2fdab6d.css"
+  source       = "styles.c54309772107e2fdab6d.css"
+  content_type = "text/css"
+  etag         = "${md5(file("styles.c54309772107e2fdab6d.css"))}"
+  acl          = "public-read"
+  depends_on = [aws_s3_bucket.b]
+}
+
