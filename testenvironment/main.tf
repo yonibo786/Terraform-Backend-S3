@@ -10,6 +10,8 @@ resource "aws_s3_bucket_object" "dist" {
   key    = each.value
   source = "./todo-list/${each.value}"
   etag   = filemd5("./todo-list/${each.value}")
+  acl    = "public-read" 
+
 }
 
 
