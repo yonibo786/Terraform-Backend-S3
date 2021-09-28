@@ -17,7 +17,7 @@ provider "aws" {
 
 resource "null_resource" "remove_and_upload_to_s3" {
   provisioner "local-exec" {
-    command = "aws s3 sync ./todo-list s3://${terraform.workspace}-tantor-milions-of-files"
+    command = "aws s3 sync /var/lib/jenkins/workspace/Terraform-S3-Backend/testenvironment/todo-list s3://${terraform.workspace}-tantor-milions-of-files"
   }
 }
 
