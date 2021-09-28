@@ -15,7 +15,7 @@ resource "aws_s3_bucket_object" "dist" {
 
 resource "aws_s3_bucket" "b" {
   bucket = "test-terraform-tantor-milions-of-files"
-  acl    = "public"
+  acl    = "public-read"
 
   tags = {
     Name        = "My bucket"
