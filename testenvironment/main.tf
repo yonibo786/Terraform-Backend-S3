@@ -11,6 +11,7 @@ resource "aws_s3_bucket_object" "dist" {
   source = "./todo-list/${each.value}"
   etag   = filemd5("./todo-list/${each.value}")
   acl    = "public-read" 
+  depends_on = [aws_s3_bucket.b]
 
 }
 
