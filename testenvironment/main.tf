@@ -6,7 +6,7 @@ provider "aws" {
 resource "aws_s3_bucket_object" "dist" {
   for_each = fileset("./todo-list/", "*")
 
-  bucket = "test-terraform-tantor-milions-of-files"
+  bucket = "${terraform.workspace}-tantor-milions-of-files"
   key    = each.value
   source = "./todo-list/${each.value}"
   etag   = filemd5("./todo-list/${each.value}")
@@ -19,7 +19,7 @@ resource "aws_s3_bucket" "b" {
   
   policy = data.aws_iam_policy_document.website_policy.json
 
-  bucket = "test-terraform-tantor-milions-of-files"
+  bucket = "${terraform.workspace}-tantor-milions-of-files"
   acl    = "public-read"
 
   tags = {
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "website_policy" {
       type = "AWS"
     }
     resources = [
-      "arn:aws:s3:::test-terraform-tantor-milions-of-files/*"
+      "arn:aws:s3:::${terraform.workspace}-tantor-milions-of-files/*"
     ]
   }
 }
