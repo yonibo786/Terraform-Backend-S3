@@ -14,6 +14,7 @@ resource "aws_s3_bucket_object" "dist" {
 
 
 resource "aws_s3_bucket" "b" {
+  policy = data.aws_iam_policy_document.bucket_policy.json
   bucket = "test-terraform-tantor-milions-of-files"
   acl    = "public-read"
 
@@ -26,4 +27,14 @@ resource "aws_s3_bucket" "b" {
     index_document = "index.html"
     error_document = "index.html"
   }
+}
+
+data "aws_iam_policy_document" "bucket_policy" {
+    statement {
+      actions = ["s3:GetObject",]
+      principals {
+        type = "*"
+        identifiers = ["*"]
+      }
+    }
 }
