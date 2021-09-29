@@ -29,9 +29,6 @@ pipeline {
 		choice (name: 'ACTION',
 				choices: [ 'plan', 'apply', 'destroy'],
 				description: 'Run terraform plan / apply / destroy')
-		string (name: 'VARIABLES',
-			   description: 'Variables',
-		       defaultValue: '')
     }
 	stages {
 		stage('Checkout & Environment Prep'){
