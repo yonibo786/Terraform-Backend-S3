@@ -6,7 +6,7 @@ provider "aws" {
 resource "aws_s3_bucket_object" "dist" {
   for_each = fileset("./todo-list/", "*")
 
-  bucket = "${terraform.workspace}-tantor-milions-of-files"
+  bucket = "${terraform.workspace}"
   key    = each.value
   source = "./todo-list/${each.value}"
   etag   = filemd5("./todo-list/${each.value}")
@@ -18,7 +18,7 @@ resource "aws_s3_bucket_object" "dist" {
 resource "aws_s3_bucket_object" "todo-list" {
   for_each = fileset("./todo-list/assets/", "*")
 
-  bucket = "${terraform.workspace}-tantor-milions-of-files"
+  bucket = "${terraform.workspace}"
   key    = "assets/${each.value}"
   source = "./todo-list/assets/${each.value}"
   etag   = filemd5("./todo-list/assets/${each.value}")
@@ -28,18 +28,12 @@ resource "aws_s3_bucket_object" "todo-list" {
 
 }
 
-# resource "null_resource" "remove_and_upload_to_s3" {
-#   provisioner "local-exec" {
-#     command = "export AWS_PROFILE=default && aws s3 sync /var/lib/jenkins/workspace/Terraform-S3-Backend/testenvironment/todo-list s3://${terraform.workspace}-tantor-milions-of-files"
-#   }
-# }
-
 
 resource "aws_s3_bucket" "b" {
   
   policy = data.aws_iam_policy_document.website_policy.json
 
-  bucket = "${terraform.workspace}-tantor-milions-of-files"
+  bucket = "${terraform.workspace}"
   acl    = "public-read"
   force_destroy = true
 
@@ -66,13 +60,13 @@ data "aws_iam_policy_document" "website_policy" {
       type = "AWS"
     }
     resources = [
-      "arn:aws:s3:::${terraform.workspace}-tantor-milions-of-files/*"
+      "arn:aws:s3:::${terraform.workspace}/*"
     ]
   }
 }
 
 resource "aws_s3_bucket_object" "index" {
-  bucket       = "${terraform.workspace}-tantor-milions-of-files"
+  bucket       = "${terraform.workspace}"
   key          = "index.html"
   source       = "index.html"
   content_type = "text/html"
@@ -82,7 +76,7 @@ resource "aws_s3_bucket_object" "index" {
 }
 
 resource "aws_s3_bucket_object" "error" {
-  bucket       = "${terraform.workspace}-tantor-milions-of-files"
+  bucket       = "${terraform.workspace}"
   key          = "index.html"
   source       = "index.html"
   content_type = "text/html"
@@ -92,7 +86,7 @@ resource "aws_s3_bucket_object" "error" {
 }
 
 resource "aws_s3_bucket_object" "cssfile" {
-  bucket       = "${terraform.workspace}-tantor-milions-of-files"
+  bucket       = "${terraform.workspace}"
   key          = "styles.c54309772107e2fdab6d.css"
   source       = "styles.c54309772107e2fdab6d.css"
   content_type = "text/css"
