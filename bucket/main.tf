@@ -1,9 +1,9 @@
 provider "aws" {
-  region = "eu-central-1"
+  region = "us-east-1"
 }
 
 resource "aws_s3_bucket" "b" {
-  bucket = "${terraform.workspace}-tf-tantor"
+  bucket = "${terraform.workspace}"
   acl    = "private"
 
   tags = {
