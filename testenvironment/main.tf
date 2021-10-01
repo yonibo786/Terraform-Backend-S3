@@ -41,6 +41,7 @@ resource "aws_s3_bucket" "b" {
   tags = {
     Name        = "My bucket"
     Environment = var.plan
+    SelectedRegion = var.region
   }
   
    website {
