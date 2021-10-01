@@ -141,7 +141,7 @@ pipeline {
 									]])
 								{
 								try {
-									tfCmd('destroy', '-auto-approve')
+									tfCmd('destroy', '-auto-approve', "${params.VARIABLES}")
 								} catch (ex) {
 									currentBuild.result = "UNSTABLE"
 								}
