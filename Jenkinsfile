@@ -111,7 +111,7 @@ pipeline {
 									]])
 								{
 								try {
-									tfCmd('apply', 'tfplan')
+									tfCmd('apply', 'tfplan -var="region=us-east-1" -var="plan=pro"')
 								} catch (ex) {
                   currentBuild.result = "UNSTABLE"
 								}
