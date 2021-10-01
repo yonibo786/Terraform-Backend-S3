@@ -1,11 +1,11 @@
    
-def tfCmd(String command, String options = '') {
+def tfCmd(String command, String options = '', String variables = '') {
 	ACCESS = "export AWS_PROFILE=default && export TF_ENV_profile=default"
 	sh ("cd $WORKSPACE/${params.SERVICE_NAME} && ${ACCESS} && terraform init -migrate-state") // main
 	sh ("cd $WORKSPACE/base && ${ACCESS} && terraform init -migrate-state") // base
 	sh ("cd $WORKSPACE/${params.SERVICE_NAME} && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
-	sh ("echo ${command} ${options}") 
-        sh ("cd $WORKSPACE/${params.SERVICE_NAME} && ${ACCESS} && terraform init && terraform ${command} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
+	sh ("echo ${command} ${variables} ${options}") 
+        sh ("cd $WORKSPACE/${params.SERVICE_NAME} && ${ACCESS} && terraform init && terraform ${command} ${variables} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
 }
 
 pipeline {
@@ -79,7 +79,7 @@ pipeline {
 									]])
 								{
 								try {
-									tfCmd('plan', '"${params.VARIABLES}" -detailed-exitcode -out=tfplan')
+									tfCmd('plan', '-detailed-exitcode -out=tfplan', "${params.VARIABLES}")
 								} catch (ex) {
 									if (ex == 2 && "${ACTION}" == 'apply') {
 										currentBuild.result = "UNSTABLE"
@@ -113,7 +113,7 @@ pipeline {
 									]])
 								{
 								try {
-									tfCmd('apply', 'tfplan "${params.VARIABLES}"')
+									tfCmd('apply', 'tfplan', "${params.VARIABLES}")
 								} catch (ex) {
                   currentBuild.result = "UNSTABLE"
 								}
