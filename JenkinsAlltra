@@ -19,7 +19,7 @@ stages {
                                     def json_str = JsonOutput.toJson(data)
                                     def json_beauty = JsonOutput.prettyPrint(json_str)
                                     println(json_beauty)
-                                    def response = httpRequest contentType: 'APPLICATION_JSON', consoleLogResponseBody: true, customHeaders: [[name: 'Authorization', value: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZW5raW5zQG1vb25hY3RpdmUuY29tIiwiciI6ImRldm9wcyIsIm8iOiI2MWEzYmE5NWI3OWQ0ZjhhZGNmZTAwMGIiLCJleHAiOjE2NzAzMTQ1NDB9.kx8qhvfEdHlJiRQxCfihY3jgee71xS_rfOxV94A7fx4"]], httpMode: 'POST', requestBody: json_str, timeout: 1000, url: "https://api.tantor.io/v0.1/instances/", wrapAsMultipart: false
+                                    def response = httpRequest contentType: 'APPLICATION_JSON', consoleLogResponseBody: true, customHeaders: [[name: 'Authorization', value: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZW5raW5zQG1vb25hY3RpdmUuY29tIiwiciI6ImRldm9wcyIsIm8iOiI2MWEzYmE5NWI3OWQ0ZjhhZGNmZTAwMGIiLCJleHAiOjE2NzAzMTQ1NDB9.kx8qhvfEdHlJiRQxCfihY3jgee71xS_rfOxV94A7fx4"]], httpMode: 'POST', requestBody: json_str, timeout: 1000, url: "https://api.tantor.io/v0.1/instances", wrapAsMultipart: false
                                     println(response)
                                     
 
