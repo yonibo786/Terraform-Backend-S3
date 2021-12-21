@@ -1,26 +1,13 @@
 stage('populate namespaces') {
             steps {
                 script {
-                    utility = new utils()
-                    uptools = new upTools()
-                    (env_list, _)= scFlatten(hashMap: schema, flattenPath: PATH_TO_ENVIRONMENTS, key : 'nightly_shutdown', value: true)
-                    for (String env : env_list) {
-                        Map<String, Object> environmentJson = uptools.ScReadKeyValue(jsonFile: schema,
-                        keyPath: "${PATH_TO_ENVIRONMENTS}.${env}")
-                        String namespace = environmentJson.get('namespace') ?: null
-                        String kconfig = environmentJson.get('kconfig') ?: null
                         def data = [
-                            "name" : env,
-                            "display_name" : env,
+                            "name" : "a",
+                            "display_name" : "A",
                             "template_name": "KubernetesNamespace",
                             "properties" : [
-                                "namespace": namespace,
-                                "kconfig": kconfig,
-                                "app_url": environmentJson.get('app_url') ?: null,
-                                "dynamic_env": environmentJson.get('dynamic_env')  ?: null,
-                                "mission_critical": environmentJson.get('mission_critical')  ?: null,
-                                "on_demand": environmentJson.get('on_demand')  ?: null,
-                                "nightly_shutdown": environmentJson.get('nightly_shutdown')  ?: null
+                                "namespace": "admin365-cm-ci-nepton",
+                                "kconfig": "admin365-infra-stg-eks"
                             ]
                         ]
                         def json_str = JsonOutput.toJson(data)
@@ -29,7 +16,7 @@ stage('populate namespaces') {
                             println(json_beauty)
                             httpRequest contentType: 'APPLICATION_JSON', customHeaders: [[name: 'Authorization', value: TOKEN]], httpMode: 'POST', requestBody: json_str, responseHandle: 'NONE', timeout: 1000, url: BASE_URL, wrapAsMultipart: false
                         }
-                    }
+                    
                 }
             }
             }
