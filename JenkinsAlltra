@@ -18,7 +18,7 @@ stages {
                                     ]
                                     def json_str = JsonOutput.toJson(data)
                                     def json_beauty = JsonOutput.prettyPrint(json_str)
-                                    if(env == "cm-ci-nepton"){
+                                    if(env == "a"){
                                         println(json_beauty)
                                         httpRequest contentType: 'APPLICATION_JSON', customHeaders: [[name: 'Authorization', value: TOKEN]], httpMode: 'POST', requestBody: json_str, responseHandle: 'NONE', timeout: 1000, url: BASE_URL, wrapAsMultipart: false
                                     }
