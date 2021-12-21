@@ -7,7 +7,7 @@ stages {
             stage('populate namespaces') {
                         steps {
                             script {
-                                    def data = [
+                                    def data = {
                                         "name" : "a",
                                         "display_name" : "A",
                                         "template_name": "KubernetesNamespace",
@@ -15,7 +15,7 @@ stages {
                                             "namespace": "admin365-cm-ci-nepton",
                                             "kconfig": "admin365-infra-stg-eks"
                                         ]
-                                    ]
+                                    }
                                     def json_str = JsonOutput.toJson(data)
                                     def json_beauty = JsonOutput.prettyPrint(json_str)
                                     println(json_beauty)
