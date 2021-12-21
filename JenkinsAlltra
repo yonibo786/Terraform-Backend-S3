@@ -1,22 +1,24 @@
-stage('populate namespaces') {
-            steps {
-                script {
-                        def data = [
-                            "name" : "a",
-                            "display_name" : "A",
-                            "template_name": "KubernetesNamespace",
-                            "properties" : [
-                                "namespace": "admin365-cm-ci-nepton",
-                                "kconfig": "admin365-infra-stg-eks"
-                            ]
-                        ]
-                        def json_str = JsonOutput.toJson(data)
-                        def json_beauty = JsonOutput.prettyPrint(json_str)
-                        if(env == "cm-ci-nepton"){
-                            println(json_beauty)
-                            httpRequest contentType: 'APPLICATION_JSON', customHeaders: [[name: 'Authorization', value: TOKEN]], httpMode: 'POST', requestBody: json_str, responseHandle: 'NONE', timeout: 1000, url: BASE_URL, wrapAsMultipart: false
+stages {
+            stage('populate namespaces') {
+                        steps {
+                            script {
+                                    def data = [
+                                        "name" : "a",
+                                        "display_name" : "A",
+                                        "template_name": "KubernetesNamespace",
+                                        "properties" : [
+                                            "namespace": "admin365-cm-ci-nepton",
+                                            "kconfig": "admin365-infra-stg-eks"
+                                        ]
+                                    ]
+                                    def json_str = JsonOutput.toJson(data)
+                                    def json_beauty = JsonOutput.prettyPrint(json_str)
+                                    if(env == "cm-ci-nepton"){
+                                        println(json_beauty)
+                                        httpRequest contentType: 'APPLICATION_JSON', customHeaders: [[name: 'Authorization', value: TOKEN]], httpMode: 'POST', requestBody: json_str, responseHandle: 'NONE', timeout: 1000, url: BASE_URL, wrapAsMultipart: false
+                                    }
+
+                            }
                         }
-                    
-                }
-            }
-            }
+                        }
+}
