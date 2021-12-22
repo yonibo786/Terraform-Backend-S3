@@ -10,10 +10,16 @@ stages {
                                     def data = [
                                         "name" : "c",
                                         "display_name" : "A",
-                                        "template_name": "KubernetesNamespace",
+                                        "template_name": "Service",
                                         "properties" : [
-                                            "namespace": "admin365-cm-ci-nepton",
-                                            "kconfig": "admin365-infra-stg-eks"
+                                            "chart_version": null,
+                                             "skip_secret_validation": true,
+                                             "chart_name": "admin-server-crm",
+                                            "repo": "admin-crm",
+                                            "app-suite": "Admin365",
+                                            "slack_channel": null,
+                                            "pre": null,
+                                            "responsible_team": null
                                         ]
                                     ]
                                     def json_str = JsonOutput.toJson(data)
