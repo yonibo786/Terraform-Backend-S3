@@ -12,14 +12,14 @@ stages {
                                         "display_name" : "A",
                                         "template_name": "Service",
                                         "properties" : [
-                                            "chart_version": null,
+                                            "chart-version": null,
                                              "skip_secret_validation": true,
-                                             "chart_name": "admin-server-crm",
+                                             "chart-name": "admin-server-crm",
                                             "repo": "admin-crm",
                                             "app-suite": "Admin365",
-                                            "slack_channel": null,
+                                            "slack-channel": null,
                                             "pre": null,
-                                            "responsible_team": null
+                                            "responsible-team": null
                                         ]
                                     ]
                                     def json_str = JsonOutput.toJson(data)
