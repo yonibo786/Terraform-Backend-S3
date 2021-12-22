@@ -8,7 +8,7 @@ stages {
                         steps {
                             script {
                                     def data = [
-                                        "name" : "b",
+                                        "name" : "c",
                                         "display_name" : "A",
                                         "template_name": "KubernetesNamespace",
                                         "properties" : [
