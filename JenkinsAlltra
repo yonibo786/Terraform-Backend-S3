@@ -8,7 +8,7 @@ stages {
                         steps {
                             script {
                                     def data = [
-                                        "name" : "d",
+                                        "name" : "e",
                                         "display_name" : "A",
                                         "template_name": "Service",
                                         "properties" : [
