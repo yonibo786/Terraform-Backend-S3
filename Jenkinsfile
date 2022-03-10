@@ -113,8 +113,7 @@ pipeline {
 									]])
 								{
 								try {
-								tfCmd('apply', 'tfplan')
-
+									tfCmd('apply', 'tfplan')
 								} catch (ex) {
                   currentBuild.result = "UNSTABLE"
 								}
