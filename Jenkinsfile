@@ -5,7 +5,7 @@ def tfCmd(String command, String options = '', String variables = '') {
 	sh ("cd $WORKSPACE/base && ${ACCESS} && terraform init -migrate-state") // base
 	sh ("cd $WORKSPACE/${params.SERVICE_NAME} && terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}")
 	sh ("echo ${command} ${variables} ${options}") 
-	sh ("echo "some-data-i-do-not-need" > tfplan")
+	sh ("echo 'some-data-i-do-not-need' > tfplan")
         sh ("cd $WORKSPACE/${params.SERVICE_NAME} && ${ACCESS} && terraform init && terraform ${command} ${variables} ${options} && terraform show -no-color > show-${ENV_NAME}.txt")
 }
 
